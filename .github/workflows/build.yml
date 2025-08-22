@@ -23,7 +23,7 @@ jobs:
       - name: Build for Windows
         run: npm run make:all
 
-      - name: Debug: List output files
+      - name: Debug List output files
         run: dir out /s
 
       - name: Upload Windows artifact
@@ -54,7 +54,7 @@ jobs:
       - name: Build for macOS
         run: npm run make-mac:all
 
-      - name: Debug: List output files
+      - name: Debug List output files
         run: ls -R out
 
       - name: Upload macOS artifact
