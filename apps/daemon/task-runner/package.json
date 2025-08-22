@@ -1,0 +1,27 @@
+{
+  "name": "task-runner",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "ts-node -r tsconfig-paths/register src/index.ts",
+    "build": "tsc",
+    "bundle": "npx pkg dist/index.js --targets node18-win-x64 --output ../../bin/task-runner.exe --public",
+    "bundle:mac": "npx pkg dist/index.js --targets node18-macos-arm64 --output ../../bin/task-runner-mac --public",
+    "package": "npm run build && npm run bundle"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "bezier-js": "^6.1.4",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "ts-node": "^10.0.0",
+    "typescript": "^5.8.3"
+  },
+  "pkg": {
+    "assets": [
+      "node_modules/puppeteer-extra-plugin-stealth/**/*.*",
+      "node_modules/puppeteer/.local-chromium/**/*",
+      "node_modules/sqlite3/lib/binding/**/*"
+    ]
+  }
+}

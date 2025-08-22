@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="plugins/notyf/notyf.min.css">
+    <link rel="stylesheet" href="plugins/Dialog-JS-1.0.0/dist/dialogjs-default-1.0.0.min.css">
+</head>
+<body>
+    <div class="viewport">
+        <aside class="sidenav">
+            <div class="sidenav-header">
+                <h1>MyBot</h1>
+            </div>
+            <div class="sidenav-wrapper">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#accounts">Accounts</a></li>
+                    <li><a href="#hashtag">Hashtag editor</a></li>
+                    <li><a href="#videos">Videos</a></li>
+                    <li><a href="#comments">Comments</a></li>
+                    <li><a href="#setting">Setting</a></li>
+                </ul>
+            </div>
+        </aside>
+        <div class="content">
+            <header>
+                <!-- Bot Status -->
+                <div class="status-indicator">
+                    <span class="dot"></span>
+                    <span id="bot-status-text">Stopped</span>
+                </div>
+                <!-- Bot Controls -->
+                <div class="bot-controls">
+                    <button class="icon-btn" id="pause-btn" title="Pause">
+                        <svg width="20" height="20" viewBox="0 0 20 20"><rect x="4" y="3" width="4" height="14" rx="2" fill="#f1c40f"/><rect x="12" y="3" width="4" height="14" rx="2" fill="#f1c40f"/></svg>
+                    </button>
+                    <button class="icon-btn" id="start-btn" title="Start">
+                        <svg width="20" height="20" viewBox="0 0 20 20"><polygon points="5,3 17,10 5,17" fill="#27ae60"/></svg>
+                    </button>
+                    <button class="icon-btn" id="stop-btn" title="Stop">
+                        <svg width="20" height="20" viewBox="0 0 20 20"><rect x="4" y="4" width="12" height="12" rx="3" fill="#e74c3c"/></svg>
+                    </button>
+                </div>
+                <!-- Background Toggle -->
+                <div class="toggle-group">
+                    <span>Background</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="background-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <!-- Test Mode Toggle -->
+                <div class="toggle-group">
+                    <span>Test Mode</span>
+                    <label class="toggle-switch test-mode">
+                        <input type="checkbox" id="testmode-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </header>
+            <main>
+                <div class="page active" id="home">
+                    <div class="card-container" id="metrics-container"></div>
+                    <div class="action-btn">
+                        <button class="btn" id="clear-pending-videos">Clear Pending videos</button>
+                    </div>
+                    <div class="activity">
+                        <div class="activity-header">
+                            <h3>Activity log</h3>
+                            <button class="activity-btn" id="clear-activity-log-btn">Clear log</button>
+                        </div>
+                        <div class="activity-list" id="activities-table"></div>
+                    </div>
+                </div>
+                <div class="page" id="accounts">
+                    <div class="page-top">
+                        <h3 class="page-title">Bot Accounts</h3>
+                        <button class="btn" id="add-bot-btn">Add account</button>
+                    </div>
+                    <div class="bot-account">
+                        <div class="list-title">
+                            <h3>Accounts</h3>
+                        </div>
+                        <div class="list-container" id="bot-account-table"></div>
+                    </div>
+                </div>
+                <div class="page hashtag-editor" id="hashtag">
+                    <div class="page-top">
+                        <h3 class="page-title">Hashtag Editor</h3>
+                    </div>
+                    <div class="editor-wrapper">
+                        <div class="editor-header">
+                            <div class="header-left">
+                                <div class="editor-logo">#</div>
+                                <div class="editor-title">
+                                    <h2>Hashtag Editor</h2>
+                                    <p class="muted">Add, edit, delete & save hashtag</p>
+                                </div>
+                            </div>
+                            <div class="muted" id="hashtag-editor-status">
+                                hello
+                            </div>
+                        </div>
+                        <div class="editor-body">
+                            <section class="editor-controls">
+                                <form id="tagForm" class="field" autocomplete="off">
+                                    <label class="visually-hidden" for="tagInput">Add hashtag</label>
+                                    <div class="input-wrapper">
+                                        <input id="tagInput" name="tag" type="text" maxlength="60" placeholder="#tiktokmarketing" aria-describedby="tagHint" />
+                                        <div class="hint" id="tagHint">Press <span class="kbd">Enter</span></div>
+                                    </div>
+                                </form>
+                                <button id="addBtn" title="Add hashtag">Add</button>
+                                <button id="importBtn" class="ghost" title="Paste a list of tags">Import</button>
+                                <button id="exportBtn" class="ghost" title="Copy all tags">Copy</button>
+                                <button id="clearBtn" class="danger" title="Remove all tags">Clear All</button>
+                            </section>
+                            <section class="tags-wrap">
+                                <div class="toolbar">
+                                    <div class="tags-count"><span id="tags-count">0</span> tag(s)</div>
+                                    <div class="muted">Unique • Auto “#” • No duplicates</div>
+                                </div>
+                                <div id="tags" class="grid" aria-live="polite"></div>
+                                <div id="empty" class="empty hidden">
+                                    No hashtags yet. Add one above — e.g. <b>#tiktok</b>, <b>#marketing</b>.
+                                </div>
+                            </section>
+                        </div>
+                        <div class="editor-footer">
+                            <span class="muted">Tips:</span>
+                            <span class="kbd">Enter</span> to add,
+                            <span class="kbd">Click</span> tag to edit,
+                            <span class="kbd">Del</span> icon to remove.
+                        </div>
+                    </div>
+                </div>
+                <div class="page" id="comments">
+                    <div class="page-top">
+                        <h3>Comments</h3>
+                        <button class="btn" id="add-comment-btn">Add comment</button>
+                    </div>
+                    <div class="table-container">
+                        <div class="list-title">
+                            <h3>Comments</h3>
+                        </div>
+                        <div class="list-container" id="comment-table"></div>
+                    </div>
+                </div>
+                <div class="page" id="videos">
+                    <div class="page-top">
+                        <h3>Videos to comment on</h3>
+                        <button class="btn" id="add-video">Add video manually</button>
+                    </div>
+                    <div class="table-container">
+                        <div class="list-title">
+                            <h3>Pending videos</h3>
+                            <button class="btn" id="fetch-video">Fetch video</button>
+                        </div>
+                        <div class="list-container" id="pending-videos-table"></div>
+                    </div>
+                </div>
+                <div class="page" id="setting">
+                    <div class="page-top">
+                        <h3>Settings</h3>
+                    </div>
+                    <div class="setting-wrapper">
+                        <div class="setting-nav">
+                            <button class="active" data-setting-page="general-setting">General setup</button>
+                        </div>
+                        <div class="setting-page-wrapper">
+                            <div class="setting-page active" id="general-setting">
+                                <form id="general-setting-form">
+                                    <div class="form-group">
+                                        <div class="input-field">
+                                            <label for="post_interval">Interval between post</label>
+                                            <select id="post_interval" name="post_interval">
+                                                <option value="2">2 seconds</option>
+                                                <option value="5">5 seconds</option>
+                                                <option value="10">10 seconds</option>
+                                                <option value="15">15 seconds</option>
+                                                <option value="30">30 seconds</option>
+                                                <option value="60">1 minute</option>
+                                                <option value="120">2 minutes</option>
+                                                <option value="180">3 minutes</option>
+                                                <option value="240">4 minutes</option>
+                                                <option value="300">5 minutes</option>
+                                                <option value="600">10 minutes</option>
+                                                <option value="900">15 minutes</option>
+                                                <option value="1800">30 minutes</option>
+                                                <option value="3600">1 hour</option>
+                                                <option value="18000">5 hours</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="setting_delay_per_reply">Delay between reply</label>
+                                            <select id="setting_delay_per_reply" name="setting_delay_per_reply">
+                                                <option value="2">2 seconds</option>
+                                                <option value="5">5 seconds</option>
+                                                <option value="10">10 seconds</option>
+                                                <option value="15">15 seconds</option>
+                                                <option value="30">30 seconds</option>
+                                                <option value="60">1 minutes</option>
+                                                <option value="120">2 minutes</option>
+                                                <option value="180">3 minutes</option>
+                                                <option value="240">4 minutes</option>
+                                                <option value="300">5 minutes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-field">
+                                            <label for="maximum_comments">Maximum comments to reply to per post</label>
+                                            <input id="maximum_comments" name="maximum_comments" type="number" min="1" max="100" />
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="post_per_day">Post per day</label>
+                                            <input id="post_per_day" name="post_per_day" type="number" min="1" max="400" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-field">
+                                            <label for="max_video_auto_find">Maximum videos to auto find</label>
+                                            <input id="max_video_auto_find" name="max_video_auto_find" type="number" min="1" max="50" />
+                                        </div>
+                                    </div>
+                                    <div class="submit">
+                                        <input type="submit" class="submit-btn" value="Save">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div class="modal">
+            <div class="modal-content" id="add-bot">
+                <div class="close-modal">&times;</div>
+                <div class="content-wrapper">
+                    <form>
+                        <h3>Add Bot Account</h3>
+                        <div class="col">
+                            <div class="input-field">
+                                <label>Bot name</label>
+                                <input type="text" name="bot_name" placeholder="Enter bot name">
+                            </div>
+                            <div class="input-field">
+                                <label>Bot email</label>
+                                <input type="text" name="bot_email" placeholder="Enter bot email">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="input-field">
+                                <label>Bot password</label>
+                                <input type="text" name="bot_password" placeholder="Enter bot password">
+                            </div>
+                        </div>
+                        <div class="submit">
+                            <input type="submit" class="submit-btn" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-content" id="edit-bot">
+                <div class="close-modal">&times;</div>
+                <div class="content-wrapper">
+                    <form>
+                        <h3>Edit Bot Account</h3>
+                        <div class="col">
+                            <div class="input-field">
+                                <label>Bot name</label>
+                                <input type="text" name="bot_name" placeholder="Enter bot name">
+                            </div>
+                            <div class="input-field">
+                                <label>Bot email</label>
+                                <input type="text" name="bot_email" placeholder="Enter bot email">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="input-field">
+                                <label>Bot password</label>
+                                <input type="text" name="bot_password" placeholder="Enter bot password">
+                            </div>
+                        </div>
+                        <div class="submit">
+                            <input type="submit" class="submit-btn" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-content" id="fetch-video">
+                <div class="close-modal">&times;</div>
+                <div class="content-wrapper">
+                    <form>
+                        <h3>Fetch videos</h3>
+                        <div class="col">
+                            <div class="input-field">
+                                <label>Number of videos to fetch</label>
+                                <input type="number" name="video_num" placeholder="Enter numbers of videos to generate" min="1" max="50">
+                            </div>
+                            <div class="input-field">
+                                <label>Hashtag</label>
+                                <select name="hashtag" id="fetch-video-hashtags">
+                                    <option value="funnycat">#funnycats</option>
+                                    <option value="aivideos">#aivideos</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="submit">
+                            <input type="submit" class="submit-btn" value="Fetch videos">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-content" id="add-video">
+                <div class="close-modal">&times;</div>
+                <div class="content-wrapper">
+                    <form>
+                        <h3>Add video</h3>
+                        <div class="col">
+                            <div class="input-field">
+                                <label>Add video links here (you can add more than one using new line as a separator)</label>
+                                <textarea name="video_link" placeholder="Enter or paste video link here"></textarea>
+                            </div>
+                        </div>
+                        <div class="submit">
+                            <input type="submit" class="submit-btn" value="Add video">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-content" id="add-comment">
+                <div class="close-modal">&times;</div>
+                <div class="content-wrapper">
+                    <form>
+                        <h3>Add comment</h3>
+                        <div class="col">
+                            <div class="input-field">
+                                <label>Enter comment</label>
+                                <textarea name="comment" placeholder="Enter comment"></textarea>
+                            </div>
+                            <div class="input-field">
+                                <label>Enter emojis for comment</label>
+                                <input type="text" name="emojis" placeholder="Enter comment">
+                            </div>
+                        </div>
+                        <div class="submit">
+                            <input type="submit" class="submit-btn" value="Add comment">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-content" id="edit-comment">
+                <div class="close-modal">&times;</div>
+                <div class="content-wrapper">
+                    <form>
+                        <h3>Edit comment</h3>
+                        <div class="col">
+                            <div class="input-field">
+                                <label>Enter comment</label>
+                                <textarea name="comment" placeholder="Enter comment"></textarea>
+                            </div>
+                            <div class="input-field">
+                                <label>Enter emojis for comment</label>
+                                <input type="text" name="emojis" placeholder="Enter comment">
+                            </div>
+                        </div>
+                        <div class="submit">
+                            <input type="submit" class="submit-btn" value="Edit comment">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <template id="chipTpl">
+        <div class="chip" draggable="false">
+            <span class="tag"></span>
+            <button class="icon" data-action="delete" title="Delete hashtag" aria-label="Delete hashtag">&times;</button>
+        </div>
+    </template>
+</body>
+<script src="plugins/Dialog-JS-1.0.0/dist/Dialog-JS.1.0.0.min.js"></script>
+<script src="plugins/notyf/notyf.min.js"></script>
+<script src="js/initialize.js"></script>
+<script src="js/header-controls.js"></script>
+<script src="js/pageRender.js"></script>
+<script src="js//hashTagManager.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/functions.js"></script>
+<script>
+    app();
+</script>
+</html>

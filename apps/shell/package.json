@@ -1,0 +1,13 @@
+{
+  "name": "@myapp/shell",
+  "version": "1.0.0",
+  "scripts": {
+    "watch": "tsc -w -p tsconfig.json",
+    "build": "tsc -p tsconfig.json"
+  },
+  "types": "./dist/types",
+  "dependencies": {
+    "bezier-js": "^6.1.4",
+    "electron-auto-launch": "5.0.7"
+  }
+}
