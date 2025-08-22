@@ -1,9 +1,9 @@
 name: Build TikTok Bot for macOS and Windows
 
 on:
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch:
   push:
-    branches: [main]  # Adjust as needed
+    branches: [main]
 
 jobs:
   build-windows:
@@ -22,6 +22,9 @@ jobs:
 
       - name: Build for Windows
         run: npm run make:all
+
+      - name: Debug: List output files
+        run: dir out /s
 
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
@@ -50,6 +53,9 @@ jobs:
 
       - name: Build for macOS
         run: npm run make-mac:all
+
+      - name: Debug: List output files
+        run: ls -R out
 
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
