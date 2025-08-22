@@ -23,13 +23,10 @@ jobs:
       - name: Build for Windows
         run: npm run make:all
 
-      - name: Debug List output files
-        run: dir out /s
-
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TiktokReplyBot-windows
+          name: TiktokCommentReplyBot-windows
           path: out/make/**/*.exe
 
   build-macos:
@@ -54,11 +51,8 @@ jobs:
       - name: Build for macOS
         run: npm run make-mac:all
 
-      - name: Debug List output files
-        run: ls -R out
-
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TiktokReplyBot-mac
+          name: TiktokCommentReplyBot-mac
           path: out/make/**/*.zip
