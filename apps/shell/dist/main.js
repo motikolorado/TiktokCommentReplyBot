@@ -113,13 +113,13 @@ const createWindow = () => {
             preload: node_path_1.default.join(__dirname, 'preload/index.js'),
         },
     });
-    //mainWindow.setMenuBarVisibility(false);
-    //mainWindow.removeMenu();
+    mainWindow.setMenuBarVisibility(false);
+    mainWindow.removeMenu();
     mainWindow.loadFile(node_path_1.default.join(__dirname, '../../gui/src/index.html'));
     mainWindow.webContents.on('did-finish-load', () => {
         mainWindow.setTitle('TiktokReplyBot');
     });
-    mainWindow.webContents.openDevTools(); // Uncomment if needed
+    //mainWindow.webContents.openDevTools(); // Uncomment if needed
     // Handle target="_blank" or window.open()
     mainWindow.webContents.setWindowOpenHandler(({ url }) => {
         if (url.startsWith("http://") || url.startsWith("https://")) {
