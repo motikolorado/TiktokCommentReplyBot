@@ -20,7 +20,7 @@ module.exports = {
       authors: 'Julius George',
       description: 'A Tool that reply to comments on tiktok posts',
       exe: 'TiktokReplyBot.exe',
-      setupExe: 'FacebookCommentBotInstaller.exe',
+      setupExe: 'TiktokReplyBotInstaller.exe',
       noMsi: true,
     }),
     new MakerZIP({}, ['darwin']),
