@@ -264,7 +264,7 @@ LOG_LEVEL=debug
 
 ## Contributors
 
-- [motikolorado](https://github.com/motikolorado) - Initial development and core functionality
+- [motikolorado](https://github.com/motikolorado) - Documentation
 
 ## License
 
