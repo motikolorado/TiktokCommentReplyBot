@@ -1,1 +1,5 @@
 node_modules/
+# But not this folder (and its contents)
+!includes/
+!includes/node_modules/
+!includes/node_modules/**
